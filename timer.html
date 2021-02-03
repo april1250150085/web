@@ -6,9 +6,14 @@
 <title>劳逸结合， 快速成长</title> 
 <meta name="description" content="计时器"> 
 <meta name="viewport" content="width=device-width; initial-scale=1.0"> 
+<!--
 <audio autoplay="autoplay" loop="loop" controls="controls"><source src="http://m701.music.126.net/20210203204856/795a0891a0a9b7fab990a601d5e2f608/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/7136640173/99bd/5b7a/f5d9/a4a150f41f59153eeb55a7126928ce45.mp3"></audio>
+-->
+<audio src="http://m701.music.126.net/20210203211726/b2f6ef45bd2e48e8d19f74f1009701bc/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5258591663/61bf/33cf/e6a5/da47602351f7f71aea8c1e88de587411.mp3" 
+controls="controls" id="music" hidden></audio>
 <link rel="stylesheet" type="text/css" href="css/style.css"> 
 <script> 
+
 countDownSeconds = 60; 
 var handle = null; 
 //window load 
@@ -24,6 +29,7 @@ context.textAlign = "center";
 context.textBaseline = "middle"; 
 context.fillText(canvasText, xPos, yPos); 
 } 
+
 function updateCanvas(theContext, width, height) { 
 if (countDownSeconds < 0) { 
 clearInterval(handle); 
@@ -44,6 +50,7 @@ context.font = "24pt Century Gothic";
 context.fillText(minStr + " : " + secStr, width / 2, height / 2); 
 countDownSeconds--; 
 } 
+
 function startWorkCountDown() { 
 if (handle != null) { 
 clearInterval(handle); 
@@ -56,6 +63,7 @@ handle = setInterval(function() {
 updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.height); 
 }, 1000); 
 } 
+
 function startRestCountDown() { 
 if (handle != null) { 
 clearInterval(handle); 
@@ -68,7 +76,32 @@ handle = setInterval(function() {
 updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.height); 
 }, 1000); 
 } 
+
+function playmusic(){
+
+     var audio = document.getElementById('music'); 
+     if(audio.paused){                 
+
+         audio.play();//audio.play();// 播放  
+
+     }
+
+     else{
+
+          audio.pause();// 暂停
+
+     } 
+
+   }
+
+function pausemusic(){
+
+     var audio = document.getElementById('music');
+	 audio.pause();
+
+   }
 </script>
+
 <style>
     body{
         background-image: url("https://uploadfile.bizhizu.cn/2015/1224/20151224031235728.jpg");
@@ -81,6 +114,7 @@ updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.he
         background-color: darkorange;
     }
 </style>
+
 </head> 
 <body onload="onLoadWindow()"> 
 <div align="center"> 
@@ -102,8 +136,11 @@ updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.he
 </canvas>
  </p>
  <p>
-<button onclick="startWorkCountDown()"> 开始工作 </button> 
-<button onclick="startRestCountDown()"> 开始休息 </button> 
+<button onclick="startWorkCountDown(), pausemusic()"> 开始工作 </button> 
+<button onclick="startRestCountDown(),playmusic()"> 开始休息 </button> 
+<!--
+<button onclick="playmusic()"> 播放背景音乐 </button> 
+-->
 </p>
 <footer> 
 </footer> 
