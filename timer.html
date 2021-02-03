@@ -1,0 +1,112 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<title>劳逸结合， 快速成长</title> 
+<meta name="description" content="计时器"> 
+<meta name="viewport" content="width=device-width; initial-scale=1.0"> 
+<audio autoplay="autoplay" loop="loop" controls="controls"><source src="http://m701.music.126.net/20210203204856/795a0891a0a9b7fab990a601d5e2f608/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/7136640173/99bd/5b7a/f5d9/a4a150f41f59153eeb55a7126928ce45.mp3"></audio>
+<link rel="stylesheet" type="text/css" href="css/style.css"> 
+<script> 
+countDownSeconds = 60; 
+var handle = null; 
+//window load 
+function onLoadWindow() { 
+aCanvas = document.getElementById("countdownCanvas"); 
+context = aCanvas.getContext("2d"); 
+var canvasText = "选择进行的操作"; 
+var xPos = aCanvas.width / 2; 
+var yPos = aCanvas.height / 2; 
+context.font = "12pt Century Gothic"; 
+context.fillStyle = "#008000;"; 
+context.textAlign = "center"; 
+context.textBaseline = "middle"; 
+context.fillText(canvasText, xPos, yPos); 
+} 
+function updateCanvas(theContext, width, height) { 
+if (countDownSeconds < 0) { 
+clearInterval(handle); 
+handle = null; 
+alert("时间到！"); 
+return 0; 
+} 
+minStr = Math.floor(countDownSeconds / 60); 
+secStr = countDownSeconds % 60; 
+if (minStr < 10) { 
+minStr = "0" + minStr; 
+} 
+if (secStr < 10) { 
+secStr = "0" + secStr; 
+} 
+context.clearRect(0, 0, width, height); 
+context.font = "24pt Century Gothic"; 
+context.fillText(minStr + " : " + secStr, width / 2, height / 2); 
+countDownSeconds--; 
+} 
+function startWorkCountDown() { 
+if (handle != null) { 
+clearInterval(handle); 
+} 
+countDownSeconds = document.getElementById("workIntervalInput").value * 60; 
+timeDisplayCanvas = document.getElementById("countdownCanvas"); 
+timeDisplayContext2D = timeDisplayCanvas.getContext("2d"); 
+updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.height); 
+handle = setInterval(function() { 
+updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.height); 
+}, 1000); 
+} 
+function startRestCountDown() { 
+if (handle != null) { 
+clearInterval(handle); 
+} 
+countDownSeconds = document.getElementById("restIntervalInput").value * 60; 
+timeDisplayCanvas = document.getElementById("countdownCanvas"); 
+timeDisplayContext2D = timeDisplayCanvas.getContext("2d"); 
+updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.height); 
+handle = setInterval(function() { 
+updateCanvas(timeDisplayContext2D, timeDisplayCanvas.width, timeDisplayCanvas.height); 
+}, 1000); 
+} 
+</script>
+<style>
+    body{
+        background-image: url("https://uploadfile.bizhizu.cn/2015/1224/20151224031235728.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100%;
+    }
+    .hover{
+        font-size: larger;
+        background-color: darkorange;
+    }
+</style>
+</head> 
+<body onload="onLoadWindow()"> 
+<div align="center"> 
+<header> 
+<h1>劳逸结合计时器</h1> 
+</header> 
+<p>
+请设置连续每节课的时间: 
+<input name="workIntervalInput" id="workIntervalInput" type="number" value="40" min="10" max="120" step="5"/> 
+分钟 <b>    </b>
+ 
+请设置休息时长: 
+<input name="restIntervalInput" id="restIntervalInput" type="number" value="10" min="3" max="30" step="1"/> 
+分钟 
+</p>
+<p>
+<canvas id="countdownCanvas" width="300" height="50" style="border:2px solid black"> 
+倒计时 
+</canvas>
+ </p>
+ <p>
+<button onclick="startWorkCountDown()"> 开始工作 </button> 
+<button onclick="startRestCountDown()"> 开始休息 </button> 
+</p>
+<footer> 
+</footer> 
+</div> 
+</body> 
+</html> 
